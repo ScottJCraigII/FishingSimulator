@@ -8,7 +8,7 @@ class World
 {
 	
 	public: 
-		World() {};
+		World(){};
 		
 		virtual void PrintGrid() = 0;
 		virtual void UpdateGrid() = 0;

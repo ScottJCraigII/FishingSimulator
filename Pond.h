@@ -11,4 +11,6 @@ using namespace std;
 		void initGrid();
 		bool checkBounds();
 		
+		vector<Fish> fishpop;
+		
  };

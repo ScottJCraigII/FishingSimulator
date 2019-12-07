@@ -2,8 +2,8 @@
 /**
  * Default Constructor
  */
-Pond :: Pond() : World(){
-}
+Pond :: Pond() : World(){}
+
 void Pond :: PrintGrid(){}
 bool Pond :: UpdateGrid(){}
 

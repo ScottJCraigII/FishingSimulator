@@ -1,16 +1,18 @@
+#include <cstdlib>
 using namespace std;
+
  class Pond : public World {
 	 public:
-		Pond {};
-		~Pond {};
+		Pond();
+		~Pond();
 		
 		void PrintGrid();
 		void UpdateGrid();
 		
 	 private:
 		void initGrid();
-		bool checkBounds();
-		
+		bool checkBounds(int,int);
+		int row;
+		int col;
 		vector<Fish> fishpop;
-		
  };

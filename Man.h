@@ -3,8 +3,8 @@ using namespace std;
 class Man{
 	
 	public:
-		Man{};
-		~Man{};
+		Man();
+		~Man();
 		
 	private:
 		char person;

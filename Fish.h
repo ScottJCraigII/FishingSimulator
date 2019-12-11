@@ -1,13 +1,18 @@
+#include <cstdlib>
 using namespace std;
 
 class Fish{
 	
 	public:
-		Fish{};
+		Fish();
+		Fish(int,int);
 		~Fish();
+		
 	
 	private:
-		char size;
+		int locRow;
+		int locCol;
+		int size;
 		int hunger;
 		int sex;
 		

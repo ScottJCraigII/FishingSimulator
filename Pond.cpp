@@ -1,5 +1,5 @@
 #include "Pond.h"
-
+#include "World.h"
 
 using namespace std;
 /**
@@ -37,9 +37,10 @@ void Pond :: UpdateGrid(){
 			grid[i][j] =' ';
 		}
 	}
+	
 	//repopulate fish grid after they moved
 	for(Fish f: fishpop){
-		grid[locRow][locCol] = size;
+		grid[f->locRow][f->locCol] = size;
 	}
 }
 

@@ -1,4 +1,5 @@
 #include <cstdlib>
+
 using namespace std;
 
 class Fish{
@@ -6,7 +7,7 @@ class Fish{
 	public:
 		Fish();
 		Fish(int,int);
-		~Fish();
+	//	~Fish();
 		int locRow;
 		int locCol;
 		int size;

@@ -1,5 +1,5 @@
 #include "Fish.h"
-#include <cstdlib>
+#include <cstdlib> 
 
 Fish :: Fish(){
 	locCol =0;

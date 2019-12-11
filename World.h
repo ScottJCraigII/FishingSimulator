@@ -10,7 +10,7 @@ class World
 	public: 
 		World(){};
 		
-		virtual void PrintGrid() = 0;
+		virtual void PrintGrid() = 0; 
 		virtual void UpdateGrid() = 0;
 		
 	protected:

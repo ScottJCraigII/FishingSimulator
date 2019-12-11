@@ -2,12 +2,12 @@
 #include <vector>
 #include "Fish.h"
 #include "World.h"
-using namespace std;
+using namespace std; 
 
  class Pond : public World {
 	 public:
 		Pond();
-		~Pond();
+//		~Pond();
 		
 		void PrintGrid();
 		void UpdateGrid();

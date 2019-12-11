@@ -7,13 +7,15 @@ class Fish{
 		Fish();
 		Fish(int,int);
 		~Fish();
-		
-	
-	private:
 		int locRow;
 		int locCol;
 		int size;
-		int hunger;
+	
+	private:
+	/*	int locRow;
+		int locCol;
+		int size; 
+	*/	int hunger;
 		int sex;
 		
 };

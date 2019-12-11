@@ -1,5 +1,9 @@
 #include "Pond.h"
 #include "World.h"
+#include "Fish.h"
+#include <cstdlib>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 /**
@@ -7,15 +11,16 @@ using namespace std;
  */
 Pond :: Pond() : World(){
 	//allows Pond to populate world without knowing World grid sizes
-	row = sizeof grid / grid[0];
-	col = sizeof grid[0]/ sizeof grid(char);
+	row = 10;//(sizeof grid )/ (grid[0]);
+	col = 10;//(sizeof grid[0])/ (sizeof (char));
+	vector <Fish> fishpop();
 	
 	int numfish = (row * col)/3; //fill 1/3 of pond with fish
 	
 	for(int i = 0; i< numfish;i++){
 		int randCol = rand() %col;
 		int randRow = rand()%row;
-		fishpop.add(Fish(randRow,randCol));
+		fishpop.push_back(Fish(randRow,randCol));
 	}
 }
 
@@ -39,8 +44,8 @@ void Pond :: UpdateGrid(){
 	}
 	
 	//repopulate fish grid after they moved
-	for(Fish f: fishpop){
-		grid[f->locRow][f->locCol] = size;
+	for(vector<Fish> :: iterator f = fishpop.begin(); f !=  fishpop.end(); ++f){
+		grid[f->locRow][f->locCol] = f->size;
 	}
 }
 

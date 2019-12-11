@@ -13,7 +13,7 @@ Pond :: Pond() : World(){
 	//allows Pond to populate world without knowing World grid sizes
 	row = 10;//(sizeof grid )/ (grid[0]);
 	col = 10;//(sizeof grid[0])/ (sizeof (char));
-	vector <Fish> fishpop();
+	vector <Fish> fishpop;
 	
 	int numfish = (row * col)/3; //fill 1/3 of pond with fish
 	
@@ -43,6 +43,9 @@ void Pond :: UpdateGrid(){
 		}
 	}
 	
+/*	for (Fish f : fishpop){
+		grid[f.locCol][f.locRow] = f.size;
+	}*/
 	//repopulate fish grid after they moved
 	for(vector<Fish> :: iterator f = fishpop.begin(); f !=  fishpop.end(); ++f){
 		grid[f->locRow][f->locCol] = f->size;

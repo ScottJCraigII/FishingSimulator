@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <vector>
+#include "Fish.h"
 #include "World.h"
 using namespace std;
 

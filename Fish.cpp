@@ -25,10 +25,8 @@ Fish :: Fish(int row, int col){
 }
 
 void Fish :: swim(){
-//	cout<<"into Fish swim\n";
 	locRow = locRow + ((rand()%3)-1);
 	locCol = locCol + ((rand()%3)-1);
-//	cout << "fish fish row, col"<< locRow<<","<< locCol<<endl;
 }
 
 void Fish :: grow(){

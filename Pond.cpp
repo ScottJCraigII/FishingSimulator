@@ -11,13 +11,13 @@ using namespace std;
  * Default Constructor
  */
 Pond :: Pond() : World(){
-	//allows Pond to populate world without knowing World grid sizes
-	row = 10;//(sizeof grid )/ (grid[0]);
-	col = 10;//(sizeof grid[0])/ (sizeof (char));
-	day = 1;
+						//allows Pond to populate world without knowing World grid sizes
 	man;
-	int numfish = 10; //(row * col)/3; //fill 1/3 of pond with fish
-//	cout << "Numfish " << numfish << endl;
+	row = 10;			//(sizeof grid )/ (grid[0]);
+	col = 10;			//(sizeof grid[0])/ (sizeof (char));
+	day = 1;
+	int numfish = 40; 	//(row * col)/3; //fill 1/3 of pond with fish
+						//	cout << "Numfish " << numfish << endl;
 	for(int i = 0; i< numfish;i++){
 		int randCol = rand() %col;
 		int randRow = rand()%row;
@@ -57,6 +57,7 @@ void Pond :: UpdateGrid(){
 //		cout << "Pond fish row " << f.locRow<< " col "<< f.locCol<<endl; //same for each as end day, same vector of Fish, different location?
 		grid[f.locRow][f.locCol] = f.size;
 	}
+	//place the fisherman
 	grid[man.locRow][man.locCol] = man.person;
 }
 
@@ -136,7 +137,7 @@ void Pond :: sail(){
 	if(man.locRow < 0){
 		man.locRow = 0;
 	}else if (man.locRow >= row){
-		man.locRow = row-1; //fish bonks into down limit, stupid fish
+		man.locRow = row-1; 
 	}
 			
 	if (man.locCol < 0){
@@ -145,22 +146,31 @@ void Pond :: sail(){
 		man.locCol = col-1;
 	}		
 }
+
 void Pond :: cast(){
-	int baitRow = man.locRow + (rand()%(2*man.castDistance +1)-man.castDistance);
-	int baitCol = man.locCol + (rand()%(2*man.castDistance +1)-man.castDistance);
+	int baitRow = man.locRow + (rand()%(2* man.castDistance +1)-man.castDistance);
+	int baitCol = man.locCol + (rand()%(2* man.castDistance +1)-man.castDistance);
 	
 	if (!checkBounds(baitRow, baitCol)){return;} // if cast is out of bounds return
 	
 	if (grid[baitRow][baitCol]!=' '){	//if  grid whitespace no point in checking the vector, no fish
 		for(vector<Fish>::iterator f = fishpop.begin(); f!= fishpop.end(); f++){
-			if(baitRow == f->locRow && baitCol ==f->locCol && f->hunger >man.bait){
-				cout << "You landed a "<< f->weight<<" oz Fish!";
-				fishpop.erase(f);
-			}else{cout<<"No Bites";}
+			if(baitRow == f->locRow && baitCol ==f->locCol && f->hunger >= man.bait){
+				cout << "You landed a "<< f->weight<<" oz Fish!\n";
+				if (f->weight > 20){
+					cout << "Put the fish in your livewell\n";
+					fishpop.erase(f);
+					return;
+				}else {
+					cout << "You release the fish that was too small\n";
+					return; //catch one fish per worm..
+				}
+			}
 		}
 	}
-	
+	return;
 }
+
 
 
 

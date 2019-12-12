@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 using namespace std;
  
 class Man{

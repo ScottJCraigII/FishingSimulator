@@ -95,14 +95,13 @@ void Pond :: endSeason(){
 		}
 	}
 	for (Fish f: fishpop){
-		while(numMales>0){
-			if (f.sex == 0){
+		if(numMales> 0 && f.sex == 0){
 				fishpop.push_back(Fish(f.locRow,f.locCol)); // add fish to mothers block
 				numMales--;
 			}
 		}
-	}
-	day = 0;
+	
+	day = 1;
 }
 
 bool Pond :: checkBounds(int row, int col){

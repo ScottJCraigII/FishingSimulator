@@ -10,23 +10,27 @@ using namespace std;
 int main (int argc, char **argv){
 	srand(time(NULL)); //seed for randomizer
 	
-	int seasonLength=5;
+	int seasonLength=2;
 	int maxyears =5;
 	int year=1;
 	
 	Pond pond;
-	cout <<"Pond built and ready to fish!\n";
+	cout <<" Pond built and ready to fish!\n";
 	while(year<maxyears){
 		cout << "Year "<< year<< " Fish in Pond "<< pond.fishpop.size()<<endl;
 		while(pond.getDay() <= seasonLength){
 			cout << "Day "<<pond.getDay()<<" of fishing!\n";
 			pond.UpdateGrid();
 			pond.PrintGrid();
-			cout<<"Press Enter to end the Day";
+			cout<<"Press Enter to end the Day\n";
 			cin.ignore();
+			cout << "cin ignore\n";
 			pond.endDay();
+			cout << "Pond end day\n";
 		}
+		cout << "Pond end year\n";
 		pond.endSeason();
+		cout << "increment year\n";
 		year++;
 	}
 	return 0;

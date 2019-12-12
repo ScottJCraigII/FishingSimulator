@@ -1,5 +1,6 @@
 #include "Pond.h"
 #include "World.h"
+//#include "Man.h"
 //#include "Fish.h"
 #include <cstdlib>
 #include <iostream>
@@ -14,7 +15,7 @@ Pond :: Pond() : World(){
 	row = 10;//(sizeof grid )/ (grid[0]);
 	col = 10;//(sizeof grid[0])/ (sizeof (char));
 	day = 1;
-	
+	man;
 	int numfish = 10; //(row * col)/3; //fill 1/3 of pond with fish
 //	cout << "Numfish " << numfish << endl;
 	for(int i = 0; i< numfish;i++){
@@ -56,6 +57,7 @@ void Pond :: UpdateGrid(){
 //		cout << "Pond fish row " << f.locRow<< " col "<< f.locCol<<endl; //same for each as end day, same vector of Fish, different location?
 		grid[f.locRow][f.locCol] = f.size;
 	}
+	grid[man.locRow][man.locCol] = man.person;
 }
 
 void Pond :: endDay(){
@@ -129,6 +131,36 @@ int Pond :: getDay(){
 	return day;
 }
 
+void Pond :: sail(){
+	man.move();
+	if(man.locRow < 0){
+		man.locRow = 0;
+	}else if (man.locRow >= row){
+		man.locRow = row-1; //fish bonks into down limit, stupid fish
+	}
+			
+	if (man.locCol < 0){
+		man.locCol = 0;
+	}else if (man.locCol>=col){
+		man.locCol = col-1;
+	}		
+}
+void Pond :: cast(){
+	int baitRow = man.locRow + (rand()%(2*man.castDistance +1)-man.castDistance);
+	int baitCol = man.locCol + (rand()%(2*man.castDistance +1)-man.castDistance);
+	
+	if (!checkBounds(baitRow, baitCol)){return;} // if cast is out of bounds return
+	
+	if (grid[baitRow][baitCol]!=' '){	//if  grid whitespace no point in checking the vector, no fish
+		for(vector<Fish>::iterator f = fishpop.begin(); f!= fishpop.end(); f++){
+			if(baitRow == f->locRow && baitCol ==f->locCol && f->hunger >man.bait){
+				cout << "You landed a "<< f->weight<<" oz Fish!";
+				fishpop.erase(f);
+			}else{cout<<"No Bites";}
+		}
+	}
+	
+}
 
 
 

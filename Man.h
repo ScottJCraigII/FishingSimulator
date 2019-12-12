@@ -4,9 +4,19 @@ class Man{
 	
 	public:
 		Man();
-		~Man();
+//		~Man();
+
+		char person ='#';
+		int bait;
+		int locRow;
+		int locCol;
+		int castDistance;
+		
+		void move();
+		//void cast();
+		
 		
 	private:
-		char person;
-		int bait;	
+	//	char person='#';
+	//	int bait;	
 };

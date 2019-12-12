@@ -13,6 +13,7 @@ class Fish{
 		char size;
 		int sex;
 		int weight;
+		int hunger;
 		
 		void swim();
 		void grow();
@@ -21,7 +22,7 @@ class Fish{
 	/*	int locRow;
 		int locCol;
 		int size; 
-	*/	int hunger;
+		int hunger;
 	//	int sex;
-		
+	*/
 };

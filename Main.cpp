@@ -9,7 +9,8 @@ using namespace std;
 
 int main (int argc, char **argv){
 	srand(time(NULL)); //seed for randomizer
-	
+	int dailyCasts = 5;
+	int casts=0;
 	int seasonLength=3;
 	int maxyears =5;
 	int year=1;
@@ -21,8 +22,14 @@ int main (int argc, char **argv){
 		cout << "Year "<< year<< " Fish in Pond "<< pond.fishpop.size()<<endl;
 		while(pond.getDay() <= seasonLength){
 			cout << "Day "<<pond.getDay()<<" of fishing!\n";
-			pond.UpdateGrid();
-			pond.PrintGrid();
+			casts = 0;
+			while(casts<dailyCasts){
+				pond.sail();
+				pond.UpdateGrid();
+				pond.PrintGrid();
+				pond.cast();
+				casts++;
+			}
 			cout<<"Press Enter to end the Day\n";
 			cin.ignore();
 //			cout << "cin ignore\n";

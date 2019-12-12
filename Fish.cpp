@@ -26,7 +26,7 @@ Fish :: Fish(int row, int col){
 
 void Fish :: swim(){
 //	cout<<"into Fish swim\n";
-	locRow = locRow + ((rand()%3)-1); //why is this not randomizing between -1,1?
+	locRow = locRow + ((rand()%3)-1);
 	locCol = locCol + ((rand()%3)-1);
 //	cout << "fish fish row, col"<< locRow<<","<< locCol<<endl;
 }

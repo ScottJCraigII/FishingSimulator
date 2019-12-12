@@ -2,6 +2,7 @@
 #include <vector>
 #include "Fish.h"
 #include "World.h"
+#include "Man.h"
 using namespace std; 
 
  class Pond : public World {
@@ -9,12 +10,16 @@ using namespace std;
 		Pond();
 //		~Pond();
 		vector<Fish> fishpop;
-			
+		Man man;
+		
 		void PrintGrid();
 		void UpdateGrid();
 		
 		void endDay();
 		void endSeason();
+		
+		void sail();
+		void cast();
 		
 		int getDay();
 		

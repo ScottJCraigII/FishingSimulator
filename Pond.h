@@ -13,6 +13,9 @@ using namespace std;
 		void PrintGrid();
 		void UpdateGrid();
 		
+		void endDay();
+		int getDay();
+		
 	 private:
 		void initGrid();
 		bool checkBounds(int,int);

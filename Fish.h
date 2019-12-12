@@ -11,6 +11,8 @@ class Fish{
 		int locRow;
 		int locCol;
 		char size;
+		
+		void swim();
 	
 	private:
 	/*	int locRow;

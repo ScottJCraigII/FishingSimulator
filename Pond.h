@@ -14,6 +14,8 @@ using namespace std;
 		void UpdateGrid();
 		
 		void endDay();
+		void endSeason();
+		
 		int getDay();
 		
 	 private:

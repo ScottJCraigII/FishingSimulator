@@ -11,16 +11,23 @@ int main (int argc, char **argv){
 	srand(time(NULL)); //seed for randomizer
 	
 	int seasonLength=5;
+	int maxyears =5;
+	int year=1;
 	
 	Pond pond;
 	cout <<"Pond built and ready to fish!\n";
-	while(pond.getDay() <= seasonLength){
-		cout << "Day "<<pond.getDay()<<" of fishing!\n";
-		pond.UpdateGrid();
-		pond.PrintGrid();
-		cout<<"Press Enter to end the Day";
-		cin.ignore();
-		pond.endDay();
+	while(year<maxyears){
+		cout << "Year "<< year<< " Fish in Pond "<< pond.fishpop.size()<<endl;
+		while(pond.getDay() <= seasonLength){
+			cout << "Day "<<pond.getDay()<<" of fishing!\n";
+			pond.UpdateGrid();
+			pond.PrintGrid();
+			cout<<"Press Enter to end the Day";
+			cin.ignore();
+			pond.endDay();
+		}
+		pond.endSeason();
+		year++;
 	}
 	return 0;
 }

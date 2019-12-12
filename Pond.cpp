@@ -15,7 +15,7 @@ Pond :: Pond() : World(){
 	col = 10;//(sizeof grid[0])/ (sizeof (char));
 	day = 1;
 	
-	int numfish = 1; //(row * col)/3; //fill 1/3 of pond with fish
+	int numfish = 10; //(row * col)/3; //fill 1/3 of pond with fish
 //	cout << "Numfish " << numfish << endl;
 	for(int i = 0; i< numfish;i++){
 		int randCol = rand() %col;
@@ -52,8 +52,8 @@ void Pond :: UpdateGrid(){
 	}
 	//update pond with new fish locations
 	for (Fish f : fishpop){
-		cout << "Updated pond Fish Locations"<<endl;
-		cout << "Pond fish row " << f.locRow<< " col "<< f.locCol<<endl; //same for each as end day, same vector of Fish, different location?
+//		cout << "Updated pond Fish Locations"<<endl;
+//		cout << "Pond fish row " << f.locRow<< " col "<< f.locCol<<endl; //same for each as end day, same vector of Fish, different location?
 		grid[f.locRow][f.locCol] = f.size;
 	}
 }
@@ -62,11 +62,11 @@ void Pond :: endDay(){
 	int fishTracker=1;
 	
 	for(Fish f : fishpop){
-		cout << "fish "<< fishTracker<<" tries to swim\n";
+//		cout << "fish "<< fishTracker<<" tries to swim\n";
 		//fish tries to swim
 		f.swim();
 		
-		cout << "Pond fish "<<fishTracker<<" row " << f.locRow<< " col "<< f.locCol<<endl;  
+//		cout << "Pond fish "<<fishTracker<<" row " << f.locRow<< " col "<< f.locCol<<endl;  
 		//if fish tries to swim outside of the pond, the pond restricts it
 		if (!checkBounds(f.locRow,f.locCol)){
 			if(f.locRow < 0){
@@ -80,11 +80,29 @@ void Pond :: endDay(){
 			}else if (f.locCol> col){
 				f.locCol = col;
 			}		
-			cout << "Pond fish"<<fishTracker<<" corrected row " << f.locRow<< " col "<< f.locCol<<endl;
+//			cout << "Pond fish"<<fishTracker<<" corrected row " << f.locRow<< " col "<< f.locCol<<endl;
 		}
 		fishTracker++;
 	}	
 	day++;
+}
+
+void Pond :: endSeason(){
+	int numMales = 0;
+	for (Fish f: fishpop){
+		if(f.sex ==1){
+			numMales++;
+		}
+	}
+	for (Fish f: fishpop){
+		while(numMales>0){
+			if (f.sex == 0){
+				fishpop.push_back(Fish(f.locRow,f.locCol)); // add fish to mothers block
+				numMales--;
+			}
+		}
+	}
+	day = 0;
 }
 
 bool Pond :: checkBounds(int row, int col){

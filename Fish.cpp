@@ -25,7 +25,12 @@ Fish :: Fish(int row, int col){
 }
 
 void Fish :: swim(){
-	locRow = locRow + (rand()%3-1); //why is this not randomizing between -1,1?
-	locCol = locCol + (rand()%3-1);
+//	cout<<"into Fish swim\n";
+	locRow = locRow + ((rand()%3)-1); //why is this not randomizing between -1,1?
+	locCol = locCol + ((rand()%3)-1);
 //	cout << "fish fish row, col"<< locRow<<","<< locCol<<endl;
+}
+
+void Fish :: grow(){
+	weight += 3*(rand()%6+1);
 }

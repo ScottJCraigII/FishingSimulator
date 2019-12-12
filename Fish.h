@@ -15,6 +15,7 @@ class Fish{
 		int weight;
 		
 		void swim();
+		void grow();
 	
 	private:
 	/*	int locRow;

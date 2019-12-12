@@ -6,7 +6,7 @@ Fish :: Fish(){
 	locRow=0;
 	sex = rand() %1; 
 	hunger =0;
-	size = 1;
+	size = 'F';
 }
 /**
  *Method allows Pond to place fish randomly within its bounds, 
@@ -16,5 +16,6 @@ Fish :: Fish(int row, int col){
 	locRow = row;
 	sex = rand()%1;
 	hunger = 5;
-	size = rand()%3; 
+	size = 'F'; 
+	
 }

@@ -10,7 +10,7 @@ class Fish{
 	//	~Fish();
 		int locRow;
 		int locCol;
-		int size;
+		char size;
 	
 	private:
 	/*	int locRow;

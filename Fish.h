@@ -12,6 +12,7 @@ class Fish{
 		int locCol;
 		char size;
 		int sex;
+		int weight;
 		
 		void swim();
 	

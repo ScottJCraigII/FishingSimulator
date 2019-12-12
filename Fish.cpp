@@ -9,6 +9,7 @@ Fish :: Fish(){
 	locRow=0;
 	sex = rand() %2; //MF is binary, easier to randomize and compare as ints
 	hunger =0;
+	weight=8;
 	size = 's';
 }
 /**
@@ -19,6 +20,7 @@ Fish :: Fish(int row, int col){
 	locRow = row;
 	sex = rand()%2;
 	hunger = 5;
+	weight = rand()%4+4;
 	size = 's';
 }
 

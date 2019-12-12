@@ -15,7 +15,7 @@ Pond :: Pond() : World(){
 	col = 10;//(sizeof grid[0])/ (sizeof (char));
 	day = 1;
 	
-	int numfish = 10; //(row * col)/3; //fill 1/3 of pond with fish
+	int numfish = 1; //(row * col)/3; //fill 1/3 of pond with fish
 //	cout << "Numfish " << numfish << endl;
 	for(int i = 0; i< numfish;i++){
 		int randCol = rand() %col;
@@ -90,6 +90,14 @@ void Pond :: endDay(){
 void Pond :: endSeason(){
 	int numMales = 0;
 	for (Fish f: fishpop){
+		f.weight += 8;//f.weight + (3*(rand()%6+1)); //weight gain of 3-18 ounces avg 12f
+		if(f.weight/16>=3){
+			f.size='L';
+		}else if(f.weight/16>=2){
+			f.size ='M';
+		}
+		cout << "EoS Fish weight "<< f.weight<<endl;
+		cout << "EoS Fish size "<< f.size <<endl;
 		if(f.sex ==1){
 			numMales++;
 		}

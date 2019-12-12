@@ -10,8 +10,8 @@ using namespace std;
 int main (int argc, char **argv){
 	srand(time(NULL)); //seed for randomizer
 	
-	int seasonLength=2;
-	int maxyears =5;
+	int seasonLength=1;
+	int maxyears =6;
 	int year=1;
 	
 	Pond pond;

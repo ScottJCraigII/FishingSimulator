@@ -8,7 +8,8 @@ using namespace std;
 	 public:
 		Pond();
 //		~Pond();
-		
+		vector<Fish> fishpop;
+			
 		void PrintGrid();
 		void UpdateGrid();
 		
@@ -17,5 +18,5 @@ using namespace std;
 		bool checkBounds(int,int);
 		int row;
 		int col;
-		vector<Fish> fishpop;
+//		vector<Fish> fishpop;
  };

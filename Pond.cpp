@@ -13,7 +13,6 @@ Pond :: Pond() : World(){
 	//allows Pond to populate world without knowing World grid sizes
 	row = 10;//(sizeof grid )/ (grid[0]);
 	col = 10;//(sizeof grid[0])/ (sizeof (char));
-	vector <Fish> fishpop;
 	
 	int numfish = (row * col)/3; //fill 1/3 of pond with fish
 	cout << "Numfish " << numfish << endl;
@@ -31,9 +30,9 @@ void Pond :: PrintGrid(){
 		for(int j = 0; j< col; j++){
 			cout << "++";
 		}
-		cout << endl;
+		cout << "+\n+";
 		for (int j =0;j<col;j++){
-			cout << "+"<<grid[i][j];
+			cout << " "<<grid[i][j];
 		}
 		cout << "+\n";
 	}
@@ -46,10 +45,11 @@ void Pond :: UpdateGrid(){
 			grid[i][j] =' ';
 		}
 	}
-	cout << "update 2d array with fish\n";
-/*	for (Fish f : fishpop){
+	cout << "update 2d array with fish\n" << "Fishpop size "<<fishpop.size() <<endl;
+	for (Fish f : fishpop){
+		cout<< "entered for each\n";
 		grid[f.locCol][f.locRow] = f.size;
-	}*/
+	}
 	//repopulate fish grid after they moved
 	for(vector<Fish> :: iterator f = fishpop.begin(); f !=  fishpop.end(); ++f){
 		

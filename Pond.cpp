@@ -52,36 +52,38 @@ void Pond :: UpdateGrid(){
 	}
 	//update pond with new fish locations
 	for (Fish f : fishpop){
-		grid[f.locCol][f.locRow] = f.size;
+		cout << "Updated pond Fish Locations"<<endl;
+		cout << "Pond fish row " << f.locRow<< " col "<< f.locCol<<endl; //same for each as end day, same vector of Fish, different location?
+		grid[f.locRow][f.locCol] = f.size;
 	}
 }
 
 void Pond :: endDay(){
 	int fishTracker=1;
+	
 	for(Fish f : fishpop){
 		cout << "fish "<< fishTracker<<" tries to swim\n";
 		//fish tries to swim
 		f.swim();
 		
-		cout << "Pond fish "<<fishTracker<<" row " << f.locRow<< " col"<< f.locCol<<endl; // f is the fish object, why is it not 
+		cout << "Pond fish "<<fishTracker<<" row " << f.locRow<< " col "<< f.locCol<<endl;  
 		//if fish tries to swim outside of the pond, the pond restricts it
 		if (!checkBounds(f.locRow,f.locCol)){
-			if(f.locRow<0){
+			if(f.locRow < 0){
 				f.locRow = 0;
 			}else if (f.locRow > row){
 				f.locRow = row; //fish bonks into down limit, stupid fish
 			}
 			
-			if (f.locCol<0){
-				f.locCol=0;
+			if (f.locCol < 0){
+				f.locCol = 0;
 			}else if (f.locCol> col){
 				f.locCol = col;
 			}		
+			cout << "Pond fish"<<fishTracker<<" corrected row " << f.locRow<< " col "<< f.locCol<<endl;
 		}
-		cout << "Pond fish"<<fishTracker<<" corrected row " << f.locRow<< " col"<< f.locCol<<endl;
 		fishTracker++;
 	}	
-	
 	day++;
 }
 

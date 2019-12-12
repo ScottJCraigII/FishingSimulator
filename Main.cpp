@@ -11,7 +11,7 @@ int main (int argc, char **argv){
 	srand(time(NULL)); //seed for randomizer
 	int dailyCasts = 5;
 	int casts=0;
-	int seasonLength=3;
+	int seasonLength=5;
 	int maxyears =5;
 	int year=1;
 	

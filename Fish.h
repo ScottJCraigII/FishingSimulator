@@ -15,6 +15,7 @@ class Fish{
 		int weight;
 		int hunger;
 		
+		void setSize();
 		void swim();
 		void grow();
 	

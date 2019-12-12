@@ -16,13 +16,18 @@ Pond :: Pond() : World(){
 	row = 10;			//(sizeof grid )/ (grid[0]);
 	col = 10;			//(sizeof grid[0])/ (sizeof (char));
 	day = 1;
-	int numfish = 40; 	//(row * col)/3; //fill 1/3 of pond with fish
+	int numfish = 30; 	//(row * col)/3; //fill 1/3 of pond with fish
 						//	cout << "Numfish " << numfish << endl;
 	for(int i = 0; i< numfish;i++){
 		int randCol = rand() %col;
 		int randRow = rand()%row;
 		fishpop.push_back(Fish(randRow,randCol));
 //		cout << "add fish to vector at row, col" << randRow<<","<<randCol<<endl;
+	}
+	//randomize weights 
+	for(Fish& f : fishpop){
+		f.weight = rand()%21 +10;
+		f.setSize();
 	}
 //	cout << "fish vector size "<< fishpop.size()<<endl;
 }
@@ -92,23 +97,22 @@ void Pond :: endDay(){
 
 void Pond :: endSeason(){
 	int numMales = 0;
+	
+	//this loop grows fish and counts breeding sized males in the offseason
 	for (Fish &f: fishpop){
-		f.grow();//f.weight + (3*(rand()%6+1)); //weight gain of 3-18 ounces avg 12f
-		if(f.weight/16>=3){
-			f.size='L';
-		}else if(f.weight/16>=2){
-			f.size ='M';
-		}
-//		cout << "EoS Fish weight "<< f.weight<<endl;
-//		cout << "EoS Fish size "<< f.size <<endl;
-		if(f.sex ==1){
+		f.grow(); 			//grow each of the fish
+		f.setSize();
+
+		if(f.sex == 1 && f.size >= 24){ //count breeding size males
 			numMales++;
 		}
 	}
+	
+	//this loop breeds new fish
 	for (Fish &f: fishpop){
-		if(numMales> 0 && f.sex == 0){
+		if(numMales> 0 && f.sex == 0 && f.size >= 24){
 				fishpop.push_back(Fish(f.locRow,f.locCol)); // add fish to mothers block
-				numMales--;
+				numMales--;									//remove breeding male
 			}
 		}
 	
@@ -153,12 +157,16 @@ void Pond :: cast(){
 	
 	if (!checkBounds(baitRow, baitCol)){return;} // if cast is out of bounds return
 	
-	if (grid[baitRow][baitCol]!=' '){	//if  grid whitespace no point in checking the vector, no fish
-		for(vector<Fish>::iterator f = fishpop.begin(); f!= fishpop.end(); f++){
+	//This method iterates through the vector from head, so has a preference to remove older fish first.
+	
+	if (grid[baitRow][baitCol]!=' '){		//if  grid whitespace no point in checking the vector, no fish
+		for(vector<Fish>::iterator f = fishpop.begin(); f!= fishpop.end(); f++){ //need an iterator for vect.erase
+			
 			if(baitRow == f->locRow && baitCol ==f->locCol && f->hunger >= man.bait){
 				cout << "You landed a "<< f->weight<<" oz Fish!\n";
 				if (f->weight > 20){
-					cout << "Put the fish in your livewell\n";
+					cout << "Put the fish in your livewell\n"; 
+					//add a copy of the fish to vect<Fish> livewell to keep track of caught fish implement later
 					fishpop.erase(f);
 					return;
 				}else {

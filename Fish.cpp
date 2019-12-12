@@ -30,5 +30,20 @@ void Fish :: swim(){
 }
 
 void Fish :: grow(){
-	weight += 3*(rand()%6+1);
+	if (weight<18) {
+		weight += 3*(rand()%6+1);
+	}else if (weight < 30){
+		weight += 2*(rand()%6+1);
+	}else {
+		weight += (rand()%6+1);
+	}
+}
+
+void Fish :: setSize(){
+	if(weight/16>=3){ //set ui char based on weight 3lbs is L
+			size='L';
+		}else if(weight/16>=2){
+			size ='M';
+		}
+
 }

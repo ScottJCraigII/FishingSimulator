@@ -1,23 +1,23 @@
 # FishingSimulator 
 
-Man -	'#',
-		moves up to 4 spaces randomly  between every cast
-		casts up to 5 times a day
-		casts that are out of bounds take one of the cast actions
-		can cast up to 2 spaces away
+Man -		'#',
+		1	moves up to 4 spaces randomly  between every cast
+		2	casts up to 5 times a day
+		3	casts that are out of bounds take one of the cast actions
+		4	can cast up to 2 spaces away
 		
-Fish - 	changes display char to 's','M','L' depending on weight
-		moves at the end of each day up one space in row and one in column
-		gains weight based on size (smaller fish grow faster) every off season
-		fish breed in the offseason
-		fish breeding eligiblity based on sex 
-		fish breeding based limited by size
+Fish - 	1	changes display char to 's','M','L' depending on weight
+		2	moves at the end of each day up one space in row and one in column
+		3	gains weight based on size (smaller fish grow faster) every off season
+		4	fish breed in the offseason
+		5	fish breeding eligiblity based on sex 
+		6	fish breeding based limited by size
 		
-Pond - 	inherits size from World
-		it expands the limits of the 2d World, by allowing multiple fish to occupy 
-			the same grid square, effectively turning it into a 3d array
-		controls the limits of fish/man movement
-		controls the interaction betweer man and fish
+Pond - 	1	inherits size from World
+		2	it expands the limits of the 2d World, by allowing multiple fish to occupy 
+				the same grid square, effectively turning it into a 3d array
+		3	controls the limits of fish/man movement
+		4	controls the interaction betweer man and fish
 		
 	This Simulation starts with a freshly stocked pond and a man that likes to fish.
 Everyday during fishing season, he goes out in his boat and tries to catch fish. He casts 

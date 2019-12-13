@@ -1,7 +1,5 @@
 #include "Pond.h"
 #include "World.h"
-//#include "Man.h"
-//#include "Fish.h"
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -11,34 +9,23 @@ using namespace std;
  * Default Constructor
  */
 Pond :: Pond() : World(){
-	//allows Pond to populate world without knowing World grid sizes
+//allows Pond to populate world without knowing World grid sizes
 	man;
 	int temp = sizeof grid[0];
 	row = sizeof grid / temp;
-//	cout << sizeof grid<<" "<< sizeof grid[0];
-	
 	col = (sizeof grid[0])/ (sizeof (char));
 	day = 1;
-	int numfish = row*col/4; 	//25% filled with 
-//	cout << "row " << row << " col "<< col<<endl;
+	int numfish = row*col/4; 	//25% filled with
 	for(int i = 0; i< numfish;i++){
-//		int randCol = rand() %col;
-//		int randRow = rand()%row;
 		fishpop.push_back(Fish(rand()%row,rand()%col));
-//		cout << "add fish to vector at row, col" << randRow<<","<<randCol<<endl;
 	}
 	//randomize weights 
 	for(Fish& f : fishpop){
 		f.weight = rand()%21 +10; //initial f wieghts from 10-30oz
 		f.setSize();
-	}
-	
+	}	
 	// put the boat on the pond
 	man.move(rand()%row,rand()%col);
-	
-//	cout << "fish vector size "<< fishpop.size()<<endl;
-
-
 }
 
 void Pond :: PrintGrid(){
@@ -65,10 +52,8 @@ void Pond :: UpdateGrid(){
 			grid[i][j] =' ';
 		}
 	}
-	//update pond with new fish locations
+	//update pond with fish locations, necessary to not have empty spaces where the boat used to be
 	for (Fish &f : fishpop){
-//		cout << "Updated pond Fish Locations"<<endl;
-//		cout << "Pond fish row " << f.locRow<< " col "<< f.locCol<<endl; //same for each as end day, same vector of Fish, different location?
 		grid[f.locRow][f.locCol] = f.size;
 	}
 	//place the fisherman
@@ -76,30 +61,9 @@ void Pond :: UpdateGrid(){
 }
 
 void Pond :: endDay(){
-//	int fishTracker=1;
-	
 	for(Fish &f : fishpop){
-//		cout << "fish "<< fishTracker<<" tries to swim\n";
-		//fish tries to swim
 		f.swim();
 		fixLocation(f);
-//		cout << "Pond fish "<<fishTracker<<" row " << f.locRow<< " col "<< f.locCol<<endl;  
-		//if fish tries to swim outside of the pond, the pond restricts it
-/*
-			if(f.locRow < 0){
-				f.locRow = 0;
-			}else if (f.locRow >= row){
-				f.locRow = row-1; //fish bonks into down limit, stupid fish
-			}
-			
-			if (f.locCol < 0){
-				f.locCol = 0;
-			}else if (f.locCol>=col){
-				f.locCol = col-1;
-			}		
-//			cout << "Pond fish"<<fishTracker<<" corrected row " << f.locRow<< " col "<< f.locCol<<endl;
-		
-		fishTracker++;*/
 	}	
 	day++;
 }
@@ -116,7 +80,7 @@ void Pond :: endSeason(){
 		if(f.sex == 1 && f.weight >= 24){ //count breeding size males
 			numMales++;
 		}
-		if(f.sex == 1 && f.weight >= 24){ //count breeding size males
+		if(f.sex == 1 && f.weight >= 24){ //count breeding size females
 			numFemales++;
 		}
 	}
@@ -125,11 +89,11 @@ void Pond :: endSeason(){
 	for (int i = numFemales; i>0;i--){	//doesn't need to be by refernce, since we only need to acces where mom is, not modify the mom object
 		if(numMales >0){
 
+			//fishpop++ overload ++, move push_back to overload
 			fishpop.push_back(Fish(rand()%row,rand()%col)); // add fish to mothers block  //this is where my error is?
 			numMales--;									//remove breeding male
 		}
 	}
-	
 	day = 1;
 }
 
@@ -142,6 +106,7 @@ bool Pond :: checkBounds(int r, int c){
 	return true;
 }
 
+//Pond 3 
 //this interdependence means that both fish and man objects should inherit from a super class that normalizes their location variables.
 void Pond :: fixLocation(auto& obj){
 	if(obj.locRow < 0){
@@ -167,19 +132,10 @@ int Pond :: getDay(){
 	return day;
 }
 
+//Man 1 cont.- Pond moves the man 
+//Pond 3 - limits that movement to its boundaries
 void Pond :: sail(){
 	man.move();
-	/*if(man.locRow < 0){
-		man.locRow = 0;
-	}else if (man.locRow >= row){
-		man.locRow = row-1; 
-	}
-			
-	if (man.locCol < 0){
-		man.locCol = 0;
-	}else if (man.locCol>=col){
-		man.locCol = col-1;
-	}	*/
 	fixLocation(man);	
 }
 
@@ -211,8 +167,8 @@ void Pond :: cast(){
 	return;
 }
 
-/** Unused until User actions implemented
- * 
+/** 
+ * Unused until User actions implemented
  */
 void Pond :: cast(int row, int col){
 	int baitRow = row;

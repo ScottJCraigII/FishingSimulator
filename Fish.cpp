@@ -10,7 +10,7 @@ Fish :: Fish(){
 	sex = rand() %2; //MF is binary, easier to randomize and compare as ints
 	hunger =0;
 	weight=8;
-	size = 's';
+	size = 'S';
 }
 /**
  *Method allows Pond to place fish randomly within its bounds, 
@@ -21,7 +21,7 @@ Fish :: Fish(int row, int col){
 	sex = rand()%2;
 	hunger = 5;
 	weight = rand()%4+4;
-	size = 's';
+	size = 'S';
 }
 
 void Fish :: swim(){

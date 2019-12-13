@@ -1,18 +1,16 @@
 #include "World.h"
 #include "Pond.h"
-//  #include "Fish.h"
 #include <cstdlib>
 #include <iostream>
-
 #include <time.h>
 using namespace std;
 
 int main (int argc, char **argv){
 	srand(time(NULL)); //seed for randomizer
-	int dailyCasts = 5;
+	int dailyCasts = 10;
 	int casts=0;
-	int seasonLength=5;
-	int maxyears =5;
+	int seasonLength=10;
+	int maxyears =10;
 	int year=1;
 	
 	Pond pond;
@@ -24,7 +22,7 @@ int main (int argc, char **argv){
 			cout << "Day "<<pond.getDay()<<" of fishing!\n";
 			casts = 0;
 			while(casts<dailyCasts){
-				pond.sail();
+				pond.sail(); 	//Rule Man1, Main interacts with pond so pond initiates man move
 				pond.UpdateGrid();
 				pond.PrintGrid();
 				pond.cast();
@@ -32,13 +30,9 @@ int main (int argc, char **argv){
 			}
 			cout<<"Press Enter to end the Day\n";
 			cin.ignore();
-//			cout << "cin ignore\n";
 			pond.endDay();
-//			cout << "Pond end day\n";
 		}
-//		cout << "Pond end year\n";
 		pond.endSeason();
-//		cout << "increment year\n";
 		year++;
 	}
 	cout << "Thanks for playing\n";

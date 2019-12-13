@@ -11,25 +11,34 @@ using namespace std;
  * Default Constructor
  */
 Pond :: Pond() : World(){
-						//allows Pond to populate world without knowing World grid sizes
+	//allows Pond to populate world without knowing World grid sizes
 	man;
-	row = 10;			//(sizeof grid )/ (grid[0]);
-	col = 10;			//(sizeof grid[0])/ (sizeof (char));
+	int temp = sizeof grid[0];
+	row = sizeof grid / temp;
+//	cout << sizeof grid<<" "<< sizeof grid[0];
+	
+	col = (sizeof grid[0])/ (sizeof (char));
 	day = 1;
-	int numfish = 30; 	//(row * col)/3; //fill 1/3 of pond with fish
-						//	cout << "Numfish " << numfish << endl;
+	int numfish = row*col/4; 	//25% filled with 
+//	cout << "row " << row << " col "<< col<<endl;
 	for(int i = 0; i< numfish;i++){
-		int randCol = rand() %col;
-		int randRow = rand()%row;
-		fishpop.push_back(Fish(randRow,randCol));
+//		int randCol = rand() %col;
+//		int randRow = rand()%row;
+		fishpop.push_back(Fish(rand()%row,rand()%col));
 //		cout << "add fish to vector at row, col" << randRow<<","<<randCol<<endl;
 	}
 	//randomize weights 
 	for(Fish& f : fishpop){
-		f.weight = rand()%21 +10;
+		f.weight = rand()%21 +10; //initial f wieghts from 10-30oz
 		f.setSize();
 	}
+	
+	// put the boat on the pond
+	man.move(rand()%row,rand()%col);
+	
 //	cout << "fish vector size "<< fishpop.size()<<endl;
+
+
 }
 
 void Pond :: PrintGrid(){
@@ -97,24 +106,29 @@ void Pond :: endDay(){
 
 void Pond :: endSeason(){
 	int numMales = 0;
+	int numFemales = 0;
 	
 	//this loop grows fish and counts breeding sized males in the offseason
 	for (Fish& f: fishpop){
 		f.grow(); 			//grow each of the fish
 		f.setSize();
 
-		if(f.sex == 1 && f.size >= 24){ //count breeding size males
+		if(f.sex == 1 && f.weight >= 24){ //count breeding size males
 			numMales++;
+		}
+		if(f.sex == 1 && f.weight >= 24){ //count breeding size males
+			numFemales++;
 		}
 	}
 
 	//this loop breeds new fish
-	for (Fish f: fishpop){	//doesn't need to be by refernce, since we only need to acces where mom is, not modify the mom object
-		if(numMales > 0 && f.sex == 0 && f.size >= 24){
-				fishpop.push_back(Fish(f.locRow,f.locCol)); // add fish to mothers block  //this is where my error is?
-				numMales--;									//remove breeding male
-			}
+	for (int i = numFemales; i>0;i--){	//doesn't need to be by refernce, since we only need to acces where mom is, not modify the mom object
+		if(numMales >0){
+
+			fishpop.push_back(Fish(rand()%row,rand()%col)); // add fish to mothers block  //this is where my error is?
+			numMales--;									//remove breeding male
 		}
+	}
 	
 	day = 1;
 }

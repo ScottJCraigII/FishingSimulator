@@ -21,8 +21,11 @@ using namespace std;
 		
 		void sail();
 		void cast();
+		void cast (int,int);
 		
 		int getDay();
+		
+		void fixLocation(auto&);
 		
 	 private:
 		void initGrid();

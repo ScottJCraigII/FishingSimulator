@@ -34,9 +34,9 @@ int main (int argc, char **argv){
 			cin.ignore();
 //			cout << "cin ignore\n";
 			pond.endDay();
-			cout << "Pond end day\n";
+//			cout << "Pond end day\n";
 		}
-		cout << "Pond end year\n";
+//		cout << "Pond end year\n";
 		pond.endSeason();
 //		cout << "increment year\n";
 		year++;

@@ -1,23 +1,26 @@
 # FishingSimulator 
 
-Rules
-
-1.  We have two characters: Fish and Fisherman
-
-2.  Fisherman moves to random location in pond
-
-3.  Casts 5 times per day
-
-4.  Season is 5 days
-
-5.  Fish location changes randomly
-
-6.  Fish increase in weight randomly
-
-7.  Size of fish begins as S (small) and becomes M (medium) when the weight is more than 2 lbs., becomes L (Large when the weight is more than 3 lbs.    (Max weight ?
-
-8.  Fisherman catchs when he casts at fish location
-
-9.  Fisherman can decide to keep or throw the fish back depending on size.
-
-10.  
+Man -	'#',
+		moves up to 4 spaces randomly  between every cast
+		casts up to 5 times a day
+		casts that are out of bounds take one of the cast actions
+		can cast up to 2 spaces away
+		
+Fish - 	changes display char to 's','M','L' depending on weight
+		moves at the end of each day up one space in row and one in column
+		gains weight based on size (smaller fish grow faster) every off season
+		fish breed in the offseason
+		fish breeding eligiblity based on sex 
+		fish breeding based limited by size
+		
+Pond - 	inherits size from World
+		it expands the limits of the 2d World, by allowing multiple fish to occupy 
+			the same grid square, effectively turning it into a 3d array
+		controls the limits of fish/man movement
+		controls the interaction betweer man and fish
+		
+	The best part of this simulation, is that it easily converts into a game! 
+the UI could ask the user for boat movements and overload the random functions 
+ie : sail() into sail(int row, int col), and cast() into cast (int row, int col)
+and all work with all the available methods.
+	

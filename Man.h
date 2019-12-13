@@ -15,6 +15,7 @@ class Man{
 		int castDistance;
 		
 		void move();
+		void move(int,int);
 		//void cast();
 		
 		

@@ -16,4 +16,12 @@ void Man :: move(){
 	locCol = locCol + ((rand()%3)-1);
  }
 
+/**
+ * Unused user actions implemented
+ */
+void Man :: move(int row, int col){
+	locRow = row;
+	locCol = col;
+}
+
 

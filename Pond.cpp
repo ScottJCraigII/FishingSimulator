@@ -67,16 +67,16 @@ void Pond :: UpdateGrid(){
 }
 
 void Pond :: endDay(){
-	int fishTracker=1;
+//	int fishTracker=1;
 	
 	for(Fish &f : fishpop){
 //		cout << "fish "<< fishTracker<<" tries to swim\n";
 		//fish tries to swim
 		f.swim();
-		
+		fixLocation(f);
 //		cout << "Pond fish "<<fishTracker<<" row " << f.locRow<< " col "<< f.locCol<<endl;  
 		//if fish tries to swim outside of the pond, the pond restricts it
-
+/*
 			if(f.locRow < 0){
 				f.locRow = 0;
 			}else if (f.locRow >= row){
@@ -90,7 +90,7 @@ void Pond :: endDay(){
 			}		
 //			cout << "Pond fish"<<fishTracker<<" corrected row " << f.locRow<< " col "<< f.locCol<<endl;
 		
-		fishTracker++;
+		fishTracker++;*/
 	}	
 	day++;
 }
@@ -99,7 +99,7 @@ void Pond :: endSeason(){
 	int numMales = 0;
 	
 	//this loop grows fish and counts breeding sized males in the offseason
-	for (Fish &f: fishpop){
+	for (Fish& f: fishpop){
 		f.grow(); 			//grow each of the fish
 		f.setSize();
 
@@ -107,11 +107,11 @@ void Pond :: endSeason(){
 			numMales++;
 		}
 	}
-	
+
 	//this loop breeds new fish
-	for (Fish &f: fishpop){
-		if(numMales> 0 && f.sex == 0 && f.size >= 24){
-				fishpop.push_back(Fish(f.locRow,f.locCol)); // add fish to mothers block
+	for (Fish f: fishpop){	//doesn't need to be by refernce, since we only need to acces where mom is, not modify the mom object
+		if(numMales > 0 && f.sex == 0 && f.size >= 24){
+				fishpop.push_back(Fish(f.locRow,f.locCol)); // add fish to mothers block  //this is where my error is?
 				numMales--;									//remove breeding male
 			}
 		}
@@ -128,6 +128,23 @@ bool Pond :: checkBounds(int r, int c){
 	return true;
 }
 
+//this interdependence means that both fish and man objects should inherit from a super class that normalizes their location variables.
+void Pond :: fixLocation(auto& obj){
+	if(obj.locRow < 0){
+		obj.locRow = 0;
+	}else if (obj.locRow >= row){
+		obj.locRow = row-1; 
+	}
+			
+	if (obj.locCol < 0){
+		obj.locCol = 0;
+	}else if (obj.locCol>=col){
+		obj.locCol = col-1;
+	}	
+	
+	return;
+}
+
 void Pond :: initGrid(){
 	
 }
@@ -138,7 +155,7 @@ int Pond :: getDay(){
 
 void Pond :: sail(){
 	man.move();
-	if(man.locRow < 0){
+	/*if(man.locRow < 0){
 		man.locRow = 0;
 	}else if (man.locRow >= row){
 		man.locRow = row-1; 
@@ -148,12 +165,44 @@ void Pond :: sail(){
 		man.locCol = 0;
 	}else if (man.locCol>=col){
 		man.locCol = col-1;
-	}		
+	}	*/
+	fixLocation(man);	
 }
 
 void Pond :: cast(){
 	int baitRow = man.locRow + (rand()%(2* man.castDistance +1)-man.castDistance);
 	int baitCol = man.locCol + (rand()%(2* man.castDistance +1)-man.castDistance);
+	
+	if (!checkBounds(baitRow, baitCol)){return;} // if cast is out of bounds return
+	
+	//This method iterates through the vector from head, so has a preference to remove older fish first.
+	
+	if (grid[baitRow][baitCol]!=' '){		//if  grid whitespace no point in checking the vector, no fish
+		for(vector<Fish>::iterator f = fishpop.begin(); f!= fishpop.end(); f++){ //need an iterator for vect.erase
+			
+			if(baitRow == f->locRow && baitCol ==f->locCol && f->hunger >= man.bait){
+				cout << "You landed a "<< f->weight<<" oz Fish!\n";
+				if (f->weight > 20){
+					cout << "Put the fish in your livewell\n"; 
+					//add a copy of the fish to vect<Fish> livewell to keep track of caught fish implement later
+					fishpop.erase(f);
+					return;
+				}else {
+					cout << "You release the fish that was too small\n";
+					return; //catch one fish per worm..
+				}
+			}
+		}
+	}
+	return;
+}
+
+/** Unused until User actions implemented
+ * 
+ */
+void Pond :: cast(int row, int col){
+	int baitRow = row;
+	int baitCol = col;
 	
 	if (!checkBounds(baitRow, baitCol)){return;} // if cast is out of bounds return
 	

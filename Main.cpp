@@ -7,7 +7,7 @@ using namespace std;
 
 int main (int argc, char **argv){
 	srand(time(NULL)); //seed for randomizer
-	int dailyCasts = 10;
+	int dailyCasts = 5;
 	int casts=0;
 	int seasonLength=10;
 	int maxyears =10;
@@ -17,7 +17,7 @@ int main (int argc, char **argv){
 	cout <<" Pond built and ready to fish!\n";
 	
 	while(year<=maxyears){
-		cout << "Year "<< year<< " Fish in Pond "<< pond.fishpop.size()<<endl;
+		cout << "Year "<< year<< " Fish in Pond "<< pond <<endl;
 		while(pond.getDay() <= seasonLength){
 			cout << "Day "<<pond.getDay()<<" of fishing!\n";
 			casts = 0;

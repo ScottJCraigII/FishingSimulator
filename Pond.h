@@ -3,10 +3,13 @@
 #include "Fish.h"
 #include "World.h"
 #include "Man.h"
+#include <iostream>
 
 using namespace std; 
 
  class Pond : public World {
+		friend ostream& operator <<(ostream&, Pond&);
+	 
 	 public:
 		Pond();
 //		~Pond();
@@ -23,9 +26,10 @@ using namespace std;
 		void cast();
 		void cast (int,int);
 		
-		int getDay();
+		int getDay() const;
 		
 		void fixLocation(auto&);
+//		void operator <<(ostream os);
 		
 	 private:
 		void initGrid();

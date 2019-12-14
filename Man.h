@@ -17,6 +17,8 @@ class Man{
 		void move();
 		void move(int,int);
 		//void cast();
+		void operator()(int, int);
+		 
 		
 		
 	private:

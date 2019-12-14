@@ -9,9 +9,8 @@
 #include <vector>
 
 using namespace std;
-/**
- * Default Constructor
- */
+
+// Default constructor
 Pond :: Pond() : World(){
 //allows Pond to populate world without knowing World grid sizes
 	man;
@@ -19,21 +18,8 @@ Pond :: Pond() : World(){
 	row = sizeof grid / temp;
 	col = (sizeof grid[0])/ (sizeof (char));
 	day = 1;
-	int numfish = row*col/4; 	//25% filled with
-	for(int i = 0; i< numfish;i++){
-		fishpop.push_back(Fish(rand()%row,rand()%col));
-	}
-	//randomize weights 
-	for(Fish& f : fishpop){
-		f.weight = rand()%21 +10; //initial f wieghts from 10-30oz
-		f.setSize();
-	}	
-	// put the boat on the pond
-	man.move(rand()%row,rand()%col);
+	initGrid();
 }
-
-// This prints the pond with the appropriate characters for the fish and man
-// man is our fisherman on a boat
 
 void Pond :: PrintGrid(){
 	for(int j = 0; j<= col; j++){
@@ -52,6 +38,8 @@ void Pond :: PrintGrid(){
 		}
 	cout <<endl;
 }
+
+// clears the pond so the grid can be updated accurately
 void Pond :: UpdateGrid(){
 	//clear out pond 
 	for (int i=0;i<row; i++){
@@ -59,11 +47,12 @@ void Pond :: UpdateGrid(){
 			grid[i][j] =' ';
 		}
 	}
-	//This repopulates the pon to update pond with fish locations, this is needed to prevent an empty space where the boat was in the previous iteration
+	//This repopulates the pond to update pond with fish locations, this is needed to prevent an empty space where the boat was in the previous iteration
+
 	for (Fish &f : fishpop){
 		grid[f.locRow][f.locCol] = f.size;
 	}
-	//place the fisherman in the pond
+	//place the fisherman
 	grid[man.locRow][man.locCol] = man.person;
 }
 
@@ -81,6 +70,7 @@ void Pond :: endDay(){
 // we then grow the fish and change their weight accordingly
 // determines how many male/female pairs of fish are available to decide breeding
 // resets the ay to 1 for the new season.
+
 void Pond :: endSeason(){
 	int numMales = 0;
 	int numFemales = 0;
@@ -120,8 +110,9 @@ bool Pond :: checkBounds(int r, int c){
 	return true;
 }
 
-//Pond 3 
+//Pond 3
 //this interdependence means that both fish and man objects should inherit from a super class that normalizes their location variables.
+
 void Pond :: fixLocation(auto& obj){
 	if(obj.locRow < 0){
 		obj.locRow = 0;
@@ -138,18 +129,31 @@ void Pond :: fixLocation(auto& obj){
 	return;
 }
 
-//
+// this initially sets up the pond and populates it randomly to a 25% capacity
 void Pond :: initGrid(){
+	int numfish = row*col/4; 	//25% filled with
 	
+	for(int i = 0; i< numfish;i++){
+		fishpop.push_back(Fish(rand()%row,rand()%col));
+	}
+	//randomize weights 
+	for(Fish& f : fishpop){
+		f.weight = rand()%21 +10; //initial f wieghts from 10-30oz
+		f.setSize();
+	}	
+	// put the boat on the pond
+	
+	man(rand()%row,rand()%col); // Overloaded() 
 }
 
 // This returns the day in the season
-int Pond :: getDay(){
+int Pond :: getDay() const{
 	return day;
 }
 
 // This moves the location of the man on the pond
 // This also ensures the man does not move out of the pond
+
 void Pond :: sail(){
 	man.move();
 	fixLocation(man);	
@@ -157,6 +161,7 @@ void Pond :: sail(){
 
 //  This casts the fishing pole a random distance from the man location
 //  this casts the line and uses a random function to determine where
+
 void Pond :: cast(){
 	int baitRow = man.locRow + (rand()%(2* man.castDistance +1)-man.castDistance);
 	int baitCol = man.locCol + (rand()%(2* man.castDistance +1)-man.castDistance);
@@ -165,7 +170,8 @@ void Pond :: cast(){
 	if (!checkBounds(baitRow, baitCol)){return;}
 	
 	//This method iterates through the vector from head, it is designed to remove the older fish first
-	// this prevents checking for fish if nothing is located in that position
+  // this prevents checking for fish if nothing is located in that position
+	
 	if (grid[baitRow][baitCol]!=' '){
 		for(vector<Fish>::iterator f = fishpop.begin(); f!= fishpop.end(); f++){ //need an iterator for vect.erase
 			
@@ -173,7 +179,7 @@ void Pond :: cast(){
 				cout << "You landed a "<< f->weight<<" oz Fish!\n";
 				if (f->weight > 20){
 					cout << "Put the fish in your livewell\n"; 
-					// no container or livewell created
+					//add a copy of the fish to vect<Fish> livewell to keep track of caught fish implement later if desired
 					fishpop.erase(f);
 					return;
 				}else {
@@ -188,6 +194,7 @@ void Pond :: cast(){
 
 // This casts the fishing pole a random distance from the man location
 // This casts the line and uses the input as the location.
+
 void Pond :: cast(int row, int col){
 	int baitRow = row;
 	int baitCol = col;
@@ -214,6 +221,12 @@ void Pond :: cast(int row, int col){
 		}
 	}
 	return;
+}
+
+// overloaded operator to print the fish
+ostream& operator <<(ostream& os, Pond& pond){
+	os << pond.fishpop.size();
+	return os;
 }
 
 

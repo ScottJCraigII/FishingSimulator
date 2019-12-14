@@ -1,3 +1,7 @@
+//  Written By Scott J. Craig and Carrie E. Adkins
+//  Finished 12/13/2019 11:30 pm
+//  This is a fish simulation  rules listed in read me
+
 #include <cstdlib>
 
 using namespace std;
